@@ -2,7 +2,40 @@
 <html>
 <head>
   <title>Maa Tara Garage</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+    const supabaseUrl = "YAHAN_APNA_PROJECT_URL_DALO"
+    const supabaseKey = "YAHAN_APNA_ANON_KEY_DALO"
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    window.signup = async function () {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      const { error } = await supabase.auth.signUp({ email, password })
+
+      if (error) {
+        alert(error.message)
+      } else {
+        alert("Signup successful! Check your email.")
+      }
+    }
+
+    window.login = async function () {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (error) {
+        alert(error.message)
+      } else {
+        alert("Login successful!")
+      }
+    }
+  </script>
 </head>
 <body>
 
@@ -15,40 +48,6 @@
 
 <button onclick="signup()">Sign Up</button>
 <button onclick="login()">Login</button>
-
-<script>
-
-const supabase = supabase.createClient(
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwaHhrcm5meGVyZXNxanV5dmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5NDAwNzMsImV4cCI6MjA4NzUxNjA3M30.Sqb3fGRwoIbomPVQd3UoFF09io9Dv8hVYBRNE037fKU
-);
-
-async function signup(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  const { error } = await supabase.auth.signUp({ email, password });
-
-  if(error){
-    alert(error.message);
-  } else {
-    alert("Signup successful! Check your email.");
-  }
-}
-
-async function login(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if(error){
-    alert(error.message);
-  } else {
-    alert("Login successful!");
-  }
-}
-
-</script>
 
 </body>
 </html>
